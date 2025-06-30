@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dog Breed Flashcards - Study Dog Knowledge</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .flashcard {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      padding: 2rem 3rem;
+      font-size: 2rem;
+      color: #2d6a4f;
+      margin-top: 2rem;
+      text-align: center;
+      min-width: 250px;
+      cursor: pointer;
+      user-select: none;
+      transition: box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 350px;
+    }
+    .flashcard:active {
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    }
+    .flashcard-img {
+      width: 220px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 1.2rem;
+      background: #eee;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    }
+    .flashcard-label {
+      font-size: 1.3rem;
+      color: #333;
+      margin-top: 1.2rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Study Dog Knowledge</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="levels.html">Levels</a>
+      <a href="beginner.html">Beginner</a>
+    </nav>
+  </header>
+  <main>
+    <section id="flashcards" style="min-height:60vh; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+      <h2>Dog Breed Flashcards</h2>
+      <div class="flashcard" id="flashcard">
+        <span id="flashcard-content">Herding Group</span>
+        <img id="flashcard-img" class="flashcard-img" src="" alt="" style="display:none;" />
+        <div id="flashcard-label" class="flashcard-label"></div>
+      </div>
+      <div id="flashcard-progress" style="margin-top:1rem; color:#888; font-size:1rem;"></div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Study Dog Knowledge. All rights reserved.</p>
+  </footer>
+  <script>
+    // Breed data with image URLs (public domain or Wikimedia Commons)
+    const herdingBreeds = [
+      { name: 'Australian Cattle Dog', img: 'https://images.dog.ceo/breeds/cattledog-australian/n02106030_10047.jpg' },
+      { name: 'Australian Shepherd', img: 'https://images.dog.ceo/breeds/australianshepherd/pepper.jpg' },
+      { name: 'Bearded Collie', img: 'https://images.dog.ceo/breeds/beardedcollie/n02106166_3552.jpg' },
+      { name: 'Border Collie', img: 'https://images.dog.ceo/breeds/bordercollie/n02106166_3552.jpg' },
+      { name: 'Bouvier des Flandres', img: 'https://images.dog.ceo/breeds/bouvier/n02106382_1010.jpg' },
+      { name: 'Cardigan Welsh Corgi', img: 'https://images.dog.ceo/breeds/corgi-cardigan/n02113186_1006.jpg' },
+      { name: 'Collie', img: 'https://images.dog.ceo/breeds/collie-border/n02106166_10147.jpg' },
+      { name: 'German Shepherd Dog', img: 'https://images.dog.ceo/breeds/germanshepherd/n02106662_10147.jpg' },
+      { name: 'Old English Sheepdog', img: 'https://images.dog.ceo/breeds/sheepdog-english/n02105641_10147.jpg' },
+      { name: 'Pembroke Welsh Corgi', img: 'https://images.dog.ceo/breeds/corgi-pembroke/n02113023_10147.jpg' },
+      { name: 'Shetland Sheepdog', img: 'https://images.dog.ceo/breeds/sheepdog-shetland/n02105855_10147.jpg' },
+      { name: 'Spanish Water Dog', img: 'https://images.dog.ceo/breeds/spaniel-blenheim/n02086646_10147.jpg' }
+    ];
+    const cards = [
+      { type: 'group', name: 'Herding Group' },
+      ...herdingBreeds.map(breed => ({ type: 'breed', ...breed })),
+      { type: 'group', name: 'Hound Group' },
+      { type: 'group', name: 'Non-Sporting Group' },
+      { type: 'group', name: 'Sporting Group' },
+      { type: 'group', name: 'Terrier Group' },
+      { type: 'group', name: 'Toy Group' },
+      { type: 'group', name: 'Working Group' }
+    ];
+    let current = 0;
+    const flashcard = document.getElementById('flashcard');
+    const flashcardContent = document.getElementById('flashcard-content');
+    const flashcardImg = document.getElementById('flashcard-img');
+    const flashcardLabel = document.getElementById('flashcard-label');
+    const progress = document.getElementById('flashcard-progress');
+    function updateCard() {
+      const card = cards[current];
+      if (card.type === 'group') {
+        flashcardContent.textContent = card.name;
+        flashcardImg.style.display = 'none';
+        flashcardLabel.textContent = '';
+      } else {
+        flashcardContent.textContent = '';
+        flashcardImg.src = card.img;
+        flashcardImg.alt = card.name;
+        flashcardImg.style.display = 'block';
+        flashcardLabel.textContent = card.name;
+      }
+      progress.textContent = `Card ${current+1} of ${cards.length}`;
+    }
+    flashcard.addEventListener('click', function() {
+      if (current < cards.length - 1) {
+        current++;
+        updateCard();
+      } else {
+        flashcardContent.textContent = 'End of Deck!';
+        flashcardImg.style.display = 'none';
+        flashcardLabel.textContent = '';
+        progress.textContent = '';
+      }
+    });
+    updateCard();
+  </script>
+</body>
+</html>
