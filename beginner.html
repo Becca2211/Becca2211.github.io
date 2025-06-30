@@ -25,3 +25,34 @@
   </footer>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Green Strip Example</title>
+  <style>
+    .top-strip {
+      background-color: green;
+      height: 50px;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    body {
+      margin: 0;
+      padding-top: 50px; /* to prevent content from hiding under the strip */
+    }
+  </style>
+</head>
+<body>
+  <div class="top-strip"></div>
+  <div>
+    <!-- Your page content goes here -->
+    <h1>Welcome to My Website</h1>
+    <p>Here’s some content below the green strip.</p>
+  </div>
+</body>
+</html>
